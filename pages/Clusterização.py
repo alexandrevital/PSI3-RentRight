@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = load_data("dataset\housing.parquet")  # Caminho atualizado
+df = load_data()  # Caminho atualizado
 st.subheader("Clusterização de Imóveis")
 
 

@@ -3,7 +3,7 @@ from utils import load_data
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = load_data("dataset\housing.parquet")  # Caminho atualizado
+df = load_data()  # Caminho atualizado
 
 # Selecionando colunas específicas (ajuste conforme necessário)
 selected_columns = ['price', 'sqfeet', 'beds', 'baths', 'cats_allowed', 'dogs_allowed']  # Exemplo

@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 from utils import load_data
 
-df = load_data("dataset\housing.parquet")  # Caminho atualizado
+df = load_data()  # Caminho atualizado
 
 def price_prediction(df):
     st.subheader("Previsão de Preço de Aluguel")

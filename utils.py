@@ -30,7 +30,7 @@ def __read_csv(path, encoding, low_memory=False):
         df = pd.read_csv(path, sep=';', encoding=encoding, low_memory=low_memory)
     return df
 
-def get_data(filepath):
+def get_data():
     dfs = []
 
     # Iterar sobre os arquivos salvos
@@ -72,7 +72,7 @@ def get_data(filepath):
 
     return df_transformed
 
-def load_data(filepath):
+def load_data():
     path = "dataset"
     file = "dataset.csv"
     caminho_completo = os.path.join(path, file)

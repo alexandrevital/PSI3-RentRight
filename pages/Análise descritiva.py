@@ -1,7 +1,7 @@
 import streamlit as st
 from utils import load_data
 
-df = load_data("dataset\housing.parquet")  # Caminho atualizado
+df = load_data()  # Caminho atualizado
 
 st.markdown(''' ## Estatísticas Descritivas
 Aqui você encontra as estatísticas do dataset utilizado, esta seção possui:
