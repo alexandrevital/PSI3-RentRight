@@ -1,0 +1,7 @@
+*.pyc
+__pycache__
+.history
+*.html
+venv
+dataset
+test

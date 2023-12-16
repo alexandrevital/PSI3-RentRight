@@ -34,7 +34,7 @@ def build_header():
 
 def build_body():
     col1, col2 = st.columns([.3,.7])
-    df_name = col1.selectbox('Dataset', df_names())
+    df_name = col1.selectbox('dataset', df_names())
     df = read_df(df_name)
     sort_values = col2.multiselect('Ordenar', options=df.columns, default=df.columns[0])
     tooltip ='Insira neste campo a condição de filtragem.'
