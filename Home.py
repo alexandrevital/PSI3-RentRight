@@ -1,4 +1,13 @@
 import streamlit as st
+from utils import load_data
+from utils import clean_start
+
+#Variáveis de teste:
+clean = True    #Realiza iniciações limpas, serve para testar funcionamento do gerador de .csv (Deletando arquivos já existentes caso haja)
+
+if clean:
+    clean_start()
+    clean = False
 
 st.set_page_config(
     page_title = "PISI3 - BSI - UFRPE por Gabriel Alves",

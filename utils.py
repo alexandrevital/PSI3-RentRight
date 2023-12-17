@@ -8,14 +8,16 @@ import pyarrow.parquet as pq
 import shutil
 
 def df_names():
+    check_data()
     result = []
-    dir_iter = os.scandir('test')
+    dir_iter = os.scandir('dataset')
     for f in dir_iter:
         if f.name.endswith('.csv'):
             result.append(f.name[0:-4])
     return sorted(result)
 
 def read_df(df_name, extension='csv', encoding='utf-8', low_memory=False):
+    check_data()
     path = f'dataset/{df_name}.{extension}'
     if extension=='csv':
         return __read_csv(path, encoding=encoding, low_memory=low_memory)
@@ -24,6 +26,7 @@ def read_df(df_name, extension='csv', encoding='utf-8', low_memory=False):
     raise Exception(f"Formato inválido: {extension}")
 
 def __read_csv(path, encoding, low_memory=False):
+    check_data()
     try:
         df = pd.read_csv(path, sep=',', encoding=encoding, low_memory=low_memory)
     except:
@@ -84,15 +87,23 @@ def load_data():
         return get_data()
 
 def make_csv():
-    df_transformed = get_data('dataset')
-
-    # Salvar como CSV
-    csv_filepath = 'dataset.csv'
+    df_transformed = get_data()
+    csv_filepath = 'dataset/dataset.csv'
     df_transformed.to_csv(csv_filepath, index=False)
 
-    # Mover para a pasta 'test'
-    destination_folder = 'test'
-    os.makedirs(destination_folder, exist_ok=True)  # Cria a pasta 'test' se não existir
-    destination_path = os.path.join(destination_folder, csv_filepath)
-    shutil.move(csv_filepath, destination_path)
-    print(f'Arquivo movido para a pasta {destination_folder}.')
+def check_data():
+    path = "dataset"
+    file = "dataset.csv"
+    caminho_completo = os.path.join(path, file)
+    
+    if os.path.exists(caminho_completo):
+        return
+    else:
+        make_csv()
+        return
+    
+def clean_start():
+    csv_path = os.path.join('dataset', 'Dataset.csv')
+    if os.path.exists(csv_path):
+        os.remove(csv_path)
+    return
