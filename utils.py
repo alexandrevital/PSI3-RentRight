@@ -102,7 +102,14 @@ def check_data():
         return
     
 def clean_start():
+    
     csv_path = os.path.join('dataset', 'Dataset.csv')
+    profile_path = os.path.join('reports', 'dataset.html')
+
     if os.path.exists(csv_path):
         os.remove(csv_path)
+
+    if os.path.exists(profile_path):
+        os.remove(profile_path)
+    
     return

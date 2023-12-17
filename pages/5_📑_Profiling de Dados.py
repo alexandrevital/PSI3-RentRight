@@ -20,7 +20,7 @@ def profile():
     if df_name in st.session_state:
         return 
     df = read_df(df_path)
-    profile = ProfileReport(df, title=f"{df_name} Dataset")
+    profile = ProfileReport(df, title=f"Dataset Report")
     
     # Salva o relatório no diretório "reports"
     report_path = os.path.join(reports_dir, f"{df_name}.html")
@@ -38,21 +38,25 @@ def build_header():
 
 def build_body():
     col1, col2 = st.columns([.3,.7])
-    col1.selectbox('Selecione o Dataset', df_names(), label_visibility='collapsed', key='dataset')
-    button_placeholder = col2.empty()
+    button_placeholder = col1.empty()
     if button_placeholder.button('Analisar'):
         #O container 'col2.empty()' é utilizado para que se substitua o seu conteúdo.
         #Se usar o container diretamente, os conteúdos são adicionados ao invés de serem substituídos.
         button_placeholder.button('Analisando...', disabled=True)
-        profile()
+
+        if os.path.exists(os.path.join('reports', 'dataset.html')):
+            os.remove(os.path.join('reports', 'dataset.html'))
+            profile()
+            print_report()
+        else:
+            profile()
+            print_report()
         st.experimental_rerun()
         
 
 def print_report():
-    df_name = st.session_state.dataset
-    if df_name not in st.session_state:
-        return
-    st.write(f'Dataset: <i>{df_name}</i>', unsafe_allow_html=True)
+    df_name = "dataset"
+    #st.write(f'Dataset: <i>{df_name}</i>', unsafe_allow_html=True)
     report_file = open(f'reports/{df_name}.html', 'r', encoding='utf-8')
     source_code = report_file.read() 
     components.html(source_code, height=800, scrolling=True)
