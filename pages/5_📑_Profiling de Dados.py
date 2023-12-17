@@ -1,7 +1,8 @@
 from ydata_profiling import ProfileReport
 import streamlit.components.v1 as components
 import streamlit as st
-from utils import df_names, read_df
+from utils import df_names, read_df, load_data
+import os
 
 #Data:
 #https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv
@@ -9,12 +10,22 @@ from utils import df_names, read_df
 #
 
 def profile():
-    df_name = st.session_state.dataset
+    df_path = "dataset/dataset.csv"
+    df_name = "dataset"
+    
+    # Verifica se o diretório "reports" existe, se não, cria-o
+    reports_dir = "reports"
+    os.makedirs(reports_dir, exist_ok=True)
+
     if df_name in st.session_state:
         return 
-    df = read_df(df_name)
+    df = read_df(df_path)
     profile = ProfileReport(df, title=f"{df_name} Dataset")
-    profile.to_file(f"reports/{df_name}.html")
+    
+    # Salva o relatório no diretório "reports"
+    report_path = os.path.join(reports_dir, f"{df_name}.html")
+    profile.to_file(report_path)
+    
     st.session_state[df_name] = df
 
 def build_header():
@@ -35,6 +46,7 @@ def build_body():
         button_placeholder.button('Analisando...', disabled=True)
         profile()
         st.experimental_rerun()
+        
 
 def print_report():
     df_name = st.session_state.dataset
@@ -43,7 +55,7 @@ def print_report():
     st.write(f'Dataset: <i>{df_name}</i>', unsafe_allow_html=True)
     report_file = open(f'reports/{df_name}.html', 'r', encoding='utf-8')
     source_code = report_file.read() 
-    components.html(source_code, height=400, scrolling=True)
+    components.html(source_code, height=800, scrolling=True)
 
 build_header()
 build_body()

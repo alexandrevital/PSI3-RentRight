@@ -16,14 +16,13 @@ def df_names():
             result.append(f.name[0:-4])
     return sorted(result)
 
-def read_df(df_name, extension='csv', encoding='utf-8', low_memory=False):
-    check_data()
-    path = f'dataset/{df_name}.{extension}'
-    if extension=='csv':
-        return __read_csv(path, encoding=encoding, low_memory=low_memory)
-    if extension=='parquet':
-        return pd.read_parquet(path)
-    raise Exception(f"Formato inválido: {extension}")
+def read_df(df_path, extension='csv', encoding='utf-8', low_memory=False):
+    if extension == 'csv':
+        return pd.read_csv(df_path, encoding=encoding, low_memory=low_memory)
+    elif extension == 'parquet':
+        return pd.read_parquet(df_path)
+    else:
+        raise Exception(f"Formato inválido: {extension}")
 
 def __read_csv(path, encoding, low_memory=False):
     check_data()

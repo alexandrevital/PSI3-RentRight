@@ -3,7 +3,7 @@ from utils import load_data
 from utils import clean_start
 
 #Variáveis de teste:
-clean = True    #Realiza iniciações limpas, serve para testar funcionamento do gerador de .csv (Deletando arquivos já existentes caso haja)
+clean = False    #Realiza iniciações limpas, serve para testar funcionamento do gerador de .csv (Deletando arquivos já existentes caso haja)
 
 if clean:
     clean_start()
