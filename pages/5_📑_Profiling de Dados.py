@@ -46,11 +46,8 @@ def build_body():
 
         if os.path.exists(os.path.join('reports', 'dataset.html')):
             os.remove(os.path.join('reports', 'dataset.html'))
-            profile()
-            print_report()
-        else:
-            profile()
-            print_report()
+        profile()
+        print_report()
         st.experimental_rerun()
         
 
