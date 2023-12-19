@@ -24,7 +24,7 @@ def read_df(df_path, extension='csv', encoding='utf-8', low_memory=False):
     else:
         raise Exception(f"Formato inválido: {extension}")
 
-def __read_csv(path, encoding, low_memory=False):
+def __read_csv(path = "dataset\dataset.csv", encoding = "utf-8", low_memory=False):
     check_data()
     try:
         df = pd.read_csv(path, sep=',', encoding=encoding, low_memory=low_memory)

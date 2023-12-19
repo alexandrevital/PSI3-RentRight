@@ -1,39 +1,29 @@
 import streamlit as st
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
+import xgboost
 import numpy as np
-from utils import load_data
+import pickle
+from utils import load_data, check_data, title
+import pandas as pd
 
-df = load_data()  # Caminho atualizado
+df = pd.read_csv('model\model_input_data.csv')
+print(df)
 
-def price_prediction(df):
-    st.subheader("Previsão de Preço de Aluguel")
-
+def price_prediction(analysis_df):
+    title("Previsão de Preço de Aluguel")
+    x = analysis_df.drop('price', axis = 1)
+    y = analysis_df['price']
+        
+    with open('model\model_xgb_mae_123.pkl', 'rb') as file:
+        model = pickle.load(file)
     
-    features = st.multiselect("Selecione as características para a previsão", df.columns, default=['sqfeet', 'beds', 'baths'])
+    st.write("Realizar uma previsão de preço:")
+    input_values = []
+    for feature in x:
+        value = st.number_input(f"Insira o valor de {feature}", value=np.mean(df[feature]))
+        input_values.append(value)
 
-    
-    X = df[features]
-    y = df['price']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    if st.button("Treinar Modelo"):
-        
-        model = RandomForestRegressor(n_estimators=100, random_state=42)
-        model.fit(X_train, y_train)
-
-        
-        st.write("Score do Modelo:", model.score(X_test, y_test))
-
-        
-        st.write("Realizar uma previsão de preço:")
-        input_values = []
-        for feature in features:
-            value = st.number_input(f"Insira o valor de {feature}", value=np.mean(df[feature]))
-            input_values.append(value)
-
-        if st.button("Prever"):
-            prediction = model.predict([input_values])
-            st.write(f"Previsão de Preço: ${prediction[0]:.2f}")
+    if st.button("Prever"):
+        prediction = model.predict([input_values])
+        st.write(f"Previsão de Preço: ${prediction[0]:.2f}")
 
 price_prediction(df)
