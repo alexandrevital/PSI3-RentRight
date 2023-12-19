@@ -3,8 +3,15 @@ from utils import load_data
 
 df = load_data()  # Caminho atualizado
 
-st.markdown(''' ## Estatísticas Descritivas
-Aqui você encontra as estatísticas do dataset utilizado, esta seção possui:
+
+col1, col2 = st.columns([8,1])
+text ='<h1>Estatísticas Descritivas</h1>'
+with col1:
+    st.write(text, unsafe_allow_html=True)
+with col2:
+        st.image('assets\RentRightLogo.png')
+st.markdown('''
+##### Aqui você encontra as estatísticas do dataset utilizado, esta seção possui:
 
 - **Total (count):** O número total de elementos na variável.
 - **Desvio Padrão (Std):** A medida da dispersão dos valores em relação à média.

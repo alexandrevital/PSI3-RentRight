@@ -1,7 +1,7 @@
 from ydata_profiling import ProfileReport
 import streamlit.components.v1 as components
 import streamlit as st
-from utils import df_names, read_df, load_data
+from utils import df_names, read_df, load_data, title
 import os
 
 #Data:
@@ -29,17 +29,15 @@ def profile():
     st.session_state[df_name] = df
 
 def build_header():
-    text ='<h1>ANÁLISE EXPLORATÓRIA</h1>'+\
-    '''<p>Esta página executa o <b>YData Profiling</b> (antigo <i>Pandas Profiling</i>), gerando o relatório html desta ferramenta. 
-    Uma vez gerado o HTML, ele é incluído nesta página utilizando <code>streamlit.components.v1</code>.</p>
-    <p>Esta lib gera vários gráficos e informações úteis para a análise exploratória de dados dos datasets.</p>
+    title("Profiling de dados")
+    text ='''<p>Aqui você pode analizar e gerar diversos relatórios sobre os dados fornecidos pelo dataset, contando com uma sessão para cada uma das colunas do dataset</p>
     '''
     st.write(text, unsafe_allow_html=True)
 
 def build_body():
-    col1, col2 = st.columns([.3,.7])
+    col1, col2 = st.columns([1,1])
     button_placeholder = col1.empty()
-    if button_placeholder.button('Analisar'):
+    if button_placeholder.button('Gerar relatório'):
         #O container 'col2.empty()' é utilizado para que se substitua o seu conteúdo.
         #Se usar o container diretamente, os conteúdos são adicionados ao invés de serem substituídos.
         button_placeholder.button('Analisando...', disabled=True)
@@ -60,4 +58,5 @@ def print_report():
 
 build_header()
 build_body()
-print_report()
+if os.path.exists(os.path.join('reports', 'dataset.html')):
+    print_report()

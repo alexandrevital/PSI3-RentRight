@@ -18,9 +18,9 @@ def df_names():
 
 def read_df(df_path, extension='csv', encoding='utf-8', low_memory=False):
     if extension == 'csv':
-        return pd.read_csv(df_path, encoding=encoding, low_memory=low_memory)
+        return pd.read_csv("dataset\dataset.csv", encoding=encoding, low_memory=low_memory)
     elif extension == 'parquet':
-        return pd.read_parquet(df_path)
+        return pd.read_parquet("dataset\dataset.csv")
     else:
         raise Exception(f"Formato inválido: {extension}")
 
@@ -113,3 +113,12 @@ def clean_start():
         os.remove(profile_path)
     
     return
+
+import streamlit as st
+
+def title(text):
+    col1, col2 = st.columns([8, 1])
+    with col1:
+        st.markdown(f'''<h1>{text}</h1>''', unsafe_allow_html=True)
+    with col2:
+        st.image('assets\RentRightLogo.png')
