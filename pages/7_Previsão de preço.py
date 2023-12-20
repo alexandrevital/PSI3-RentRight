@@ -2,7 +2,7 @@ import streamlit as st
 import xgboost
 import numpy as np
 import pickle
-from utils import load_data, check_data, title
+from utils import title
 import pandas as pd
 
 df = pd.read_csv('model\model_input_data.csv')
@@ -27,7 +27,7 @@ def price_prediction(analysis_df):
             input_values.append(value)
 
     #Nova UI começa aqui:
-    user_inputs = [None for i in range(14)] # Pode ser que bugue, mas relaxar com isso
+    user_inputs = [None for _ in range(14)] # Pode ser que bugue, mas relaxar com isso
     housing_types = ["Apartamento", "Residência assistida", "Condomínio", "Cabine", "Duplex", "Flat", "Casa", "Anexo", "Terreno", "Loft","Manufaturado", "Casa de cidade" ]
 
     col1, col2, col3 = st.columns([1,1,1])
