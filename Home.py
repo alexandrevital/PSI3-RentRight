@@ -14,11 +14,11 @@ st.set_page_config(
     layout = "wide",
     menu_items = {
         'About': ''' Dashboard feito para a cadeira de PSI-3 do curso de sistemas de informação na UFRPE, feito por:
-        <li>Alexandre Vital</li>
-        <li>Pedro Antunes</li>
-        <li>Vinícius Gomes</li>
-        <li>Vinícius Santos</li>
-        <li>Heitor Leony</li>
+        - Alexandre Vital
+        - Pedro Antunes
+        - Vinícius Gomes
+        - Vinícius Santos
+        - Heitor Leony
         '''
     }
 )
